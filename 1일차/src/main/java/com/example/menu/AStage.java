@@ -122,11 +122,17 @@ public class AStage {
                 new Restaurant("r007", "우동야", Restaurant.Cuisine.JAPANESE, Restaurant.PriceRange.FROM_10000_TO_15000),
                 new Restaurant("r008", "마라천국", Restaurant.Cuisine.CHINESE, Restaurant.PriceRange.FROM_10000_TO_15000),
                 new Restaurant("r009", "짜장명가", Restaurant.Cuisine.CHINESE, Restaurant.PriceRange.UNDER_10000),
-                new Restaurant("r010", "쌀국수의신", Restaurant.Cuisine.ASIAN, Restaurant.PriceRange.FROM_10000_TO_15000),
+                new Restaurant("r010", "조이포", Restaurant.Cuisine.ASIAN, Restaurant.PriceRange.FROM_10000_TO_15000),
                 new Restaurant("r011", "반미스토어", Restaurant.Cuisine.SALAD_SANDWICH, Restaurant.PriceRange.FROM_10000_TO_15000),
                 new Restaurant("r012", "샐러디", Restaurant.Cuisine.SALAD_SANDWICH, Restaurant.PriceRange.FROM_10000_TO_15000),
                 new Restaurant("r013", "브런치카페", Restaurant.Cuisine.WESTERN, Restaurant.PriceRange.OVER_15000),
-                new Restaurant("r014", "스위트하우스", Restaurant.Cuisine.DESSERT, Restaurant.PriceRange.UNDER_10000)
+                new Restaurant("r014", "스위트하우스", Restaurant.Cuisine.DESSERT, Restaurant.PriceRange.UNDER_10000),
+                new Restaurant("r015", "황제갈비", Restaurant.Cuisine.KOREAN, Restaurant.PriceRange.OVER_15000),
+                new Restaurant("r016", "규카츠정 판교점", Restaurant.Cuisine.JAPANESE, Restaurant.PriceRange.OVER_15000),
+                new Restaurant("r017", "청년다방", Restaurant.Cuisine.SNACK_BURGER, Restaurant.PriceRange.FROM_10000_TO_15000),
+                new Restaurant("r018", "서호돈가스", Restaurant.Cuisine.JAPANESE, Restaurant.PriceRange.OVER_15000),
+                new Restaurant("r019", "감성쪽갈비 판교점", Restaurant.Cuisine.KOREAN, Restaurant.PriceRange.OVER_15000),
+                new Restaurant("r020", "라무진 판교점", Restaurant.Cuisine.CHINESE, Restaurant.PriceRange.OVER_15000)
         ));
     }
 
@@ -140,9 +146,14 @@ public class AStage {
                 new Menu("짜장면", Cuisine.CHINESE, PriceRange.UNDER_10000, List.of("r009")),
                 new Menu("쌀국수", Cuisine.ASIAN, PriceRange.FROM_10000_TO_15000, List.of("r010")),
                 new Menu("샐러드볼", Cuisine.SALAD_SANDWICH, PriceRange.FROM_10000_TO_15000, List.of("r011","r012")),
-                new Menu("케이크", Cuisine.DESSERT, PriceRange.UNDER_10000, List.of("r014"))
+                new Menu("케이크", Cuisine.DESSERT, PriceRange.UNDER_10000, List.of("r014")),
+                new Menu("고기", Cuisine.KOREAN, PriceRange.OVER_15000, List.of("r015", "r019", "r020")),
+                new Menu("규카츠", Cuisine.JAPANESE, PriceRange.OVER_15000, List.of("r016")),
+                new Menu("떡볶이", Cuisine.SNACK_BURGER, PriceRange.FROM_10000_TO_15000, List.of("r017")),
+                new Menu("돈까스", Cuisine.JAPANESE, PriceRange.OVER_15000, List.of("r016", "r018"))
         ));
     }
+
 
     private static Menu pickRandomMenu(List<Menu> menus) {
         return menus.get(new Random().nextInt(menus.size()));
