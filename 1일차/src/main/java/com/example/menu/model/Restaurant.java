@@ -3,30 +3,33 @@ package com.example.menu.model;
 import java.util.Objects;
 
 public class Restaurant {
-    private final String id;
-    private final String name;
-    private int seats; // 좌석 수 (BStage에서 사용, AStage에서는 무시 가능)
-
-    // 기본 생성자 (좌석 없는 경우)
-    public Restaurant(String id, String name) {
-        this(id, name, 0);
+    public enum Cuisine {
+        KOREAN, CHINESE, JAPANESE, WESTERN, ASIAN, SNACK_BURGER, SALAD_SANDWICH, DESSERT
+    }
+    public enum PriceRange {
+        UNDER_10000, FROM_10000_TO_15000, OVER_15000
     }
 
-    // 좌석까지 지정하는 생성자
-    public Restaurant(String id, String name, int seats) {
+    private final String id;
+    private final String name;
+    private final Cuisine cuisine;
+    private final PriceRange price;
+
+    public Restaurant(String id, String name, Cuisine cuisine, PriceRange price) {
         this.id = id;
         this.name = name;
-        this.seats = seats;
+        this.cuisine = cuisine;
+        this.price = price;
     }
 
     public String getId() { return id; }
     public String getName() { return name; }
-    public int getSeats() { return seats; }
-    public void setSeats(int seats) { this.seats = seats; }
+    public Cuisine getCuisine() { return cuisine; }
+    public PriceRange getPrice() { return price; }
 
     @Override
     public String toString() {
-        return name + (seats > 0 ? " (seats=" + seats + ")" : "");
+        return name + " [" + cuisine + ", " + price + "]";
     }
 
     @Override

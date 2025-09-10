@@ -6,7 +6,7 @@ public class Menu {
     private final String name;
     private final Restaurant.Cuisine cuisine;
     private final Restaurant.PriceRange price;
-    private final List<String> restaurantIds; // 이 메뉴를 판매하는 식당 id들
+    private final List<String> restaurantIds;
 
     public Menu(String name, Restaurant.Cuisine cuisine, Restaurant.PriceRange price, List<String> restaurantIds) {
         this.name = name;
