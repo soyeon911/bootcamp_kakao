@@ -8,7 +8,7 @@ import com.example.menu.model.Cafe.CafeCat;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class AStage {
+public class Test {
 
     private static final SharedPrinter PRINTER = new SharedPrinter();
 
@@ -22,7 +22,7 @@ public class AStage {
     static class Spinner extends Thread {
         private final AtomicBoolean stop; private final long interval; private final SharedPrinter p;
         private static final char[] FRAMES = {'|','/','-','\\'};
-        Spinner(AtomicBoolean stop, long interval, SharedPrinter p) { setDaemon(true); this.stop=stop; this.interval=interval; this.p=p; }
+        Spinner(AtomicBoolean stop, long interval, SharedPrinter p) { (true); this.stop=stop; this.interval=interval; this.p=p; }
         @Override public void run() {
             int i=0; while (!stop.get()) { p.print("\r추천을 준비 중입니다... " + FRAMES[i++ % FRAMES.length] + " ♪"); try { Thread.sleep(interval); } catch (InterruptedException ignored) {} }
             p.print("\r" + " ".repeat(50) + "\r");
@@ -155,6 +155,7 @@ public class AStage {
     // --- 메인 ---
     public static void main(String[] args) {
         typeWriter("-------------------------------------------------------", 15);
+
         typeWriter("안녕하세요 당신의 소중한 식사/카페 시간!", 35);
         typeWriter("메뉴를 고르기 망설여진다면 제가 추천해 드릴게요 :)", 35);
         typeWriter("-------------------------------------------------------", 15);
