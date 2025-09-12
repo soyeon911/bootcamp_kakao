@@ -24,10 +24,6 @@ public class Test {
         System.out.println("2. 카페");
         System.out.println();
         int n = askInt(sc, "번호를 입력해주세요: ", 1, 2);
-        if (n == 2){
-            System.out.println("죄송합니다. 서비스 준비중입니다.");
-            return false;
-        }
         return n == 1;
     }
     //case 1 : cuisine 고르기 (한식, 중식, 일식 etc)
@@ -147,6 +143,29 @@ public class Test {
         );
     }
 
+    private static List<MenuCafe> seedMenuCafe() {
+        return new ArrayList<>(List.of(
+                new MenuCafe("크로와상", Cafe.CafeCat.BAKERY, Cafe.PriceRange.UNDER_10000, List.of("c001","c002")),
+                new MenuCafe("소금빵", Cafe.CafeCat.BAKERY, Cafe.PriceRange.UNDER_10000, List.of("c001", "c002")),
+                new MenuCafe("와플", Cafe.CafeCat.BAKERY, Cafe.PriceRange.FROM_10000_TO_15000, List.of("c001")),
+                new MenuCafe("치즈케이크", Cafe.CafeCat.DESSERT, Cafe.PriceRange.UNDER_10000, List.of("c003", "c004")),
+                new MenuCafe("초코케이크", Cafe.CafeCat.DESSERT, Cafe.PriceRange.FROM_10000_TO_15000, List.of("c003", "c004")),
+                new MenuCafe("아메리카노", Cafe.CafeCat.COFFEE, Cafe.PriceRange.UNDER_10000, List.of("c005")),
+                new MenuCafe("캬라멜마끼야또", Cafe.CafeCat.COFFEE, Cafe.PriceRange.FROM_10000_TO_15000, List.of("c005", "c006"))
+        ));
+    }
+
+    private static List<Cafe> seedCafe() {
+        return new ArrayList<>(List.of(
+                new Cafe("c001","만드레이크","", Cafe.CafeCat.BAKERY, Cafe.PriceRange.FROM_10000_TO_15000),
+                new Cafe("c002","제과제발","", Cafe.CafeCat.BAKERY, Cafe.PriceRange.UNDER_10000),
+                new Cafe("c003","루돌프코는 빨개요","", Cafe.CafeCat.DESSERT, Cafe.PriceRange.FROM_10000_TO_15000),
+                new Cafe("c004","루돌프엉덩이는?","", Cafe.CafeCat.DESSERT, Cafe.PriceRange.FROM_10000_TO_15000),
+                new Cafe("c005","사약카페","", Cafe.CafeCat.COFFEE, Cafe.PriceRange.UNDER_10000),
+                new Cafe("c006","이상한 나라의 앨리스","", Cafe.CafeCat.COFFEE, Cafe.PriceRange.FROM_10000_TO_15000)
+        ));
+    }
+
     public static void main(String[] args){
         System.out.println("----------------------------------------------");
         System.out.println();
@@ -200,6 +219,51 @@ public class Test {
 
             // 리스트화된 식당 보여주기
             for(Restaurant r : available){
+                System.out.println(" - " + r.getName());
+            }
+        }
+        // 카페 메뉴인 경우
+        else{
+            Cafe.CafeCat cat = askCafeCategory(sc);
+            Cafe.PriceRange price = askCafePrice(sc);
+
+            List<MenuCafe> candidates = seedMenuCafe().stream()
+                    .filter(m -> m.getCafeCat() == cat && m.getPriceRange() == price)
+                    .toList();
+
+
+            // 필터 결과가 비어있으면 조건에 맞는 음식 없다는 문구 추가
+            if(candidates.isEmpty()){
+                System.out.println("조건에 맞는 음식이 없어요.");
+                return;
+            }
+
+            // 동시성 제어 스피너 돌리기
+            AtomicBoolean stop = new AtomicBoolean(false);
+            // 스피너 클래스 가져와 (스레드 종료 신호, 프레임 전환 속도, SharedPrinter 객체)
+            Thread spinner = new Spinner(stop, 100, PRINTER);
+            spinner.start();
+            // 메인 쓰레드 정지 (try catch), 스피너 쓰레드는 동작
+            try {
+                Thread.sleep(4000);
+            } catch (InterruptedException e) {}
+            // 스피너 쓰레드 돌 때동안 메뉴 추천하기 Random()로 158줄에 있는 menufood list 화한 candidates에서 랜덤 돌리기
+            MenuCafe chosen = candidates.get(new Random().nextInt(candidates.size()));
+            // 추첨했으면 스피너 정지
+            stop.set(true);
+            // 스피너 쓰레드가 끝날 때까지 메인 쓰레드 대기
+            try {
+                spinner.join();
+            } catch (InterruptedException e) {}
+
+            System.out.println("오늘의 추천 메뉴: " + chosen.getName());
+            // 씨드 데이터(식당) 에서 chosen된 메뉴의 태그가 포함되어 있는 식당 리스트 뽑고 -> 리스트화
+            List<Cafe> available = seedCafe().stream()
+                    .filter(r -> chosen.getCafeIds().contains(r.getId()))
+                    .toList();
+
+            // 리스트화된 식당 보여주기
+            for(Cafe r : available){
                 System.out.println(" - " + r.getName());
             }
         }

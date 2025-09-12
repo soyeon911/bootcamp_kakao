@@ -15,7 +15,7 @@ public class MenuCafe{
     }
     //데이터 무결성을 위한 getter 클래스 내 선언
     public String getName() { return name; }
-    public Cafe.CafeCat getCategory() { return category; }
-    public Cafe.PriceRange getPrice() { return price; }
+    public Cafe.CafeCat getCafeCat() { return category; }
+    public Cafe.PriceRange getPriceRange() { return price; }
     public List<String> getCafeIds() { return cafeIds; }
 }
