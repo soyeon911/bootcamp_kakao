@@ -1,5 +1,5 @@
 import java.util.List;
-// 카페 메뉴 부터
+// 카페 메뉴
 public class MenuCafe{
     // 불변의 값 설정, 가공 ㄴㄴ
     private final String name;
