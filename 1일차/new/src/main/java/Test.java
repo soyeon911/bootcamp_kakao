@@ -80,7 +80,7 @@ public class Test {
             default -> Cafe.CafeCat.BAKERY;
         };
     }
-    // 가격대 선택하기
+    // 가격대 선택
     private static Cafe.PriceRange askCafePrice(Scanner sc){
         System.out.println("가격대를 선택해주세요.");
         System.out.println();
