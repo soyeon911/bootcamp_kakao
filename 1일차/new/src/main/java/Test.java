@@ -197,7 +197,7 @@ public class Test {
                     .filter(r -> chosen.getRestaurantIds().contains(r.getId()))
                     .toList();
 
-            // 그 리스트화된 식당 보여주기
+            // 리스트화된 식당 보여주기
             for(Restaurant r : available){
                 System.out.println(" - " + r.getName());
             }
