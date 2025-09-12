@@ -10,7 +10,7 @@ public class Cafe extends Place{
     private PriceRange price;
 
     public Cafe(String id, String name, String tags, CafeCat cafecat, PriceRange price) {
-        super(id, name, tags);
+        super(id, name, tags);      // Place 에서 가져올 속성들
         this.cafecat = cafecat;
         this.price = price;
     }
