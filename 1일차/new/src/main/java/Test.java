@@ -102,7 +102,7 @@ public class Test {
         private final AtomicBoolean stop;       // 다른 쓰레드에서 true로 바뀌면 스피너 종료하는 신호
         private final long interval;            // 스피너 모양 바뀌는 시간
         private final SharedPrinter p;          // 출력 동기화를 위한 프린터 (락이 걸려있어서 출력이 섞이는 걸 방지)
-        private static final char[] FRAMES = {'|', '/', '-', '\\'};
+        private static final char[] FRAMES = {'/', '-', '\\', '_'};
 
         // 스피너 생성 [주 쓰레드가 종료되면 같이 종료되는 쓰레드 = 데몬 쓰레드]
         Spinner(AtomicBoolean stop, long interval, SharedPrinter p){
@@ -114,8 +114,9 @@ public class Test {
         // 쓰레드 실 (프레임의 인덱스 세는 거, stop 플래그가 false가 될 때까지는 지속적인 실행(while), frame내 인덱스 반복해야하니까 mod 연산자 사용)
         public void run(){
             int i = 0;
+            System.out.println("추천을 준비중입니다. 잠시만 기다려주세요.");
             while(!stop.get()) {
-                p.print("\r추천을 준비중입니다. 잠시만 기다려주세요. " + FRAMES[i++ % FRAMES.length]);
+                System.out.print(FRAMES[i++ % FRAMES.length]);
                 // interval 시간동안 대기, 외부에서 쓰레드가 깨우는 경우도 생각
                 try {
                     Thread.sleep(interval);
@@ -176,11 +177,11 @@ public class Test {
             // 동시성 제어 스피너 돌리기
             AtomicBoolean stop = new AtomicBoolean(false);
             // 스피너 클래스 가져와 (스레드 종료 신호, 프레임 전환 속도, SharedPrinter 객체)
-            Thread spinner = new Spinner(stop, 200, PRINTER);
+            Thread spinner = new Spinner(stop, 100, PRINTER);
             spinner.start();
             // 메인 쓰레드 정지 (try catch), 스피너 쓰레드는 동작
             try {
-                Thread.sleep(3000);
+                Thread.sleep(4000);
             } catch (InterruptedException e) {}
             // 스피너 쓰레드 돌 때동안 메뉴 추천하기 Random()로 158줄에 있는 menufood list 화한 candidates에서 랜덤 돌리기
             MenuFood chosen = candidates.get(new Random().nextInt(candidates.size()));
