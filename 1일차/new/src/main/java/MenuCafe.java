@@ -1,17 +1,19 @@
-package com.example.menu.model;
-
 import java.util.List;
-
-public class MenuCafe {
+// 카페 메뉴 부터
+public class MenuCafe{
+    // 불변의 값 설정, 가공 ㄴㄴ
     private final String name;
     private final Cafe.CafeCat category;
     private final Cafe.PriceRange price;
     private final List<String> cafeIds;
 
     public MenuCafe(String name, Cafe.CafeCat category, Cafe.PriceRange price, List<String> cafeIds) {
-        this.name = name; this.category = category; this.price = price; this.cafeIds = cafeIds;
+        this.name = name;
+        this.category = category;
+        this.price = price;
+        this.cafeIds = cafeIds;
     }
-
+    //데이터 무결성을 위한 getter 클래스 내 선언
     public String getName() { return name; }
     public Cafe.CafeCat getCategory() { return category; }
     public Cafe.PriceRange getPrice() { return price; }

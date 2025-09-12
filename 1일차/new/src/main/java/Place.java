@@ -1,5 +1,5 @@
 public class Place {
-    protected id id;
+    protected String id;
     protected String name;
     protected String tags;
 
