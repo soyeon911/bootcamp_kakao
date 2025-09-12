@@ -101,7 +101,7 @@ public class Test {
     static class Spinner extends Thread {
         private final AtomicBoolean stop;       // 다른 쓰레드에서 true로 바뀌면 스피너 종료하는 신호
         private final long interval;            // 스피너 모양 바뀌는 시간
-        private final SharedPrinter p;          // 출력 동기화를 위한 프린터 (락이 걸려있어서 출력이 섞이는 걸 방지)
+        private final SharedPrinter p;          // 출력 동기화를 위한 프린터 (출력이 섞이는 걸 방지)
         private static final char[] FRAMES = {'/', '-', '\\', '_'};
 
         // 스피너 생성 [주 쓰레드가 종료되면 같이 종료되는 쓰레드 = 데몬 쓰레드]
@@ -111,7 +111,7 @@ public class Test {
             this.interval = interval;
             this.p = p;
         }
-        // 쓰레드 실 (프레임의 인덱스 세는 거, stop 플래그가 false가 될 때까지는 지속적인 실행(while), frame내 인덱스 반복해야하니까 mod 연산자 사용)
+        // 쓰레드 실행 (프레임의 인덱스 세는 거, stop 플래그가 false가 될 때까지는 지속적인 실행(while), frame내 인덱스 반복해야하니까 mod 연산자 사용)
         public void run(){
             int i = 0;
             System.out.println("추천을 준비중입니다. 잠시만 기다려주세요.");
